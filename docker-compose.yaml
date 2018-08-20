@@ -1,0 +1,20 @@
+version: '3'
+services:
+  ganache:
+    build:
+      context: ./server
+      dockerfile: ./Dockerfile
+    volumes:
+      - .:/usr/src/server
+    working_dir: /usr/src/server
+    ports:
+      - "8545:8545"
+  plasma:
+    build:
+      context: ./plasma_cash
+      dockerfile: ./Dockerfile
+    volumes:
+      - .:/usr/src/plasma_cash
+    working_dir: /usr/src/plasma_cash
+    ports:
+     - "5000:5000"

@@ -11,25 +11,12 @@ Child Chain ALWAYS listens for events on the RootChain contract and acts on them
 
 ## Installation
 
-1. In plasma_cash folder follow the [README.md](plasma_cash/README.md)
+1. In root folder
 
 
 ```
-cd plasma_cash
-mkvirtualenv erc721plasma --python=/usr/bin/python3.6
-pip install -r requirements.txt
-```
-
-On OSX + Homebrew (may need this)
-```
-source /usr/local/bin/virtualenvwrapper.sh
-```
-
-2. In server folder follow the [README.md](server/README.md)
-
-```
-cd server
-npm install
+docker-compose build
+docker-compose up
 ```
 
 
