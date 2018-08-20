@@ -1,4 +1,4 @@
-# Plasma Cash - ERC721 Version
+# Plasma Cash - ERC721/ERC20/ETH Supported
 
 ## Architecture
 
@@ -18,7 +18,6 @@ Child Chain ALWAYS listens for events on the RootChain contract and acts on them
 docker-compose build
 docker-compose up
 ```
-
 
 ## Demos
 
@@ -41,8 +40,13 @@ Under `demos/` there are various scenarios which can occur. You should have init
 
 ## Loom SDK integration
 
-To see the integrations run againist the Loom SDK instead of the prototype server
+To see the integrations run against the Loom SDK instead of the prototype server. To download the loom SDK, refer to https://loomx.io/developers/docs/en/basic-install-osx.html. Under the `loom_test` directory there is all the samples in Go, that directly interact with Loom SDK. If you have cloned the repo and go dependencies are not found, in `loom_test` try:
 
+```
+export GOPATH=$GOPATH:`pwd`
+```
+
+### Loom integration  tests
 
 ```
 cd server
@@ -52,19 +56,21 @@ cd ..
 cd loom_test
 make clean
 make deps
-make
-
+make demos
+make contracts
+make test
 cd ..
-./go_integration_test.sh
+
+cd loom_js_test
+yarn
+yarn build
+yarn copy-contracts
+cd ..
+
+LOOM_BIN=<ABSOLUTE_PATH_TO_LOOM> ./loom_integration_test.sh
 ```
 
-Under the `loom_test` directory there is all the samples in Go, that directly interact with Loom SDK. Usually the SDK is behind our latest research prototypes. As we only move stable Plasma features into the Loom SDK.
-
 ## For Developers
-
-### Using monkeypatched web3.py 4.2.1 version for ganache issues
-https://github.com/jordanjambazov/web3.py/commit/a61b382dd5c11de1102779868d377408c7590839
-Also https://github.com/ethereum/web3.py/pull/827
 
 ### Signing locally
 http://web3py.readthedocs.io/en/latest/web3.eth.account.html#prepare-message-for-ecrecover-in-solidity
