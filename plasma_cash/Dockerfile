@@ -4,8 +4,8 @@ FROM python:3.6-alpine
 ADD . /usr/src/plasma_cash
 WORKDIR /usr/src/plasma_cash
 
-# install bash, git, openssh
-RUN apk update && apk upgrade && apk add --no-cache bash git openssh
+# install additional dependencies
+RUN apk update && apk upgrade && apk add --no-cache bash git gcc g++ openssh musl-dev libffi-dev openssl-dev gmp-dev make automake libtool
 
 # install requirements
 RUN pip install -r requirements.txt
