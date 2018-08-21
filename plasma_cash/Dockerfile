@@ -13,8 +13,6 @@ RUN pip install -r requirements.txt
 # start plasma chain
 RUN FLASK_APP=./child_chain FLASK_ENV=development flask run --port=8546 &
 
-# wait for ganache
-CMD sleep 10
-
-# launch demo
-CMD ["python", "./demo.py"]
+# wait for ganache and launch demo
+RUN ["chmod", "+x", "/usr/src/plasma_cash/scripts/wait_for_migration.sh"]
+ENTRYPOINT ["/usr/src/plasma_cash/scripts/wait_for_migration.sh"]

@@ -4,9 +4,6 @@ FROM node
 ADD . /usr/src/server
 WORKDIR /usr/src/server
 
-# expose the port
-EXPOSE 8545
-
 # delete artifacts
 RUN rm -rf node_modules build
 
@@ -16,3 +13,4 @@ RUN npm install --loglevel=warn
 
 # migrate contracts
 CMD truffle migrate --network development
+
