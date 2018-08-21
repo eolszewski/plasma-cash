@@ -1,5 +1,8 @@
 version: '2.3'
 
+volumes:
+  app-volume:
+
 services:
   ganache:
     build: 
@@ -14,6 +17,10 @@ services:
       context: ./server
       dockerfile: Dockerfile
     working_dir: /usr/src/server
+    volumes:
+      - type: volume
+        source: app-volume
+        target: /usr/src/server/build
     depends_on:
       - ganache
   plasma:
@@ -23,3 +30,7 @@ services:
     working_dir: /usr/src/plasma_cash
     depends_on:
       - server
+    volumes:
+      - type: volume
+        source: app-volume
+        target: /usr/src/server/build
