@@ -1,4 +1,4 @@
-FROM node:8-alpine
+FROM node
 
 # work directory
 ADD . /usr/src/server
@@ -7,14 +7,12 @@ WORKDIR /usr/src/server
 # expose the port
 EXPOSE 8545
 
-# install packages quietly
-RUN npm install --loglevel=warn
+# delete artifacts
+RUN rm -rf node_modules build
+
+# install dependencies
 RUN npm install -g truffle
+RUN npm install --loglevel=warn
 
-# install bash
-RUN apk add --no-cache bash
-
-# run build
-RUN rm -rf build
-RUN npm run ganache-cli:dev
-CMD truffle compile
+# migrate contracts
+CMD truffle migrate --network development

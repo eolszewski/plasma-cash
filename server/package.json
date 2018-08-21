@@ -23,14 +23,14 @@
   },
   "devDependencies": {},
   "scripts": {
-    "console": "truffle console --network rpc",
+    "console": "truffle console --network development",
     "compile": "truffle compile",
     "test": "truffle test",
     "test:gas": "GAS_REPORTER=true npm test",
     "lint": "solium --dir ./contracts",
     "ganache-cli:dev": "scripts/ganache-cli.sh",
     "migrate:dev": "rm -rf build && npm run ganache-cli:dev && npm run migrate:dev:contracts",
-    "migrate:dev:contracts": "truffle migrate --all --network rpc > truffle_dev_contracts.log 2>&1",
+    "migrate:dev:contracts": "truffle migrate --all --network development > truffle_dev_contracts.log 2>&1",
     "migrate:prod": "truffle migrate --all --network prod",
     "prepublishOnly": "truffle compile --all"
   },

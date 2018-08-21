@@ -1,20 +1,29 @@
-version: '3'
+version: '2.1'
 services:
   ganache:
-    build:
-      context: ./server
-      dockerfile: ./Dockerfile
-    volumes:
-      - .:/usr/src/server
-    working_dir: /usr/src/server
+    build: 
+      context: ./ganache
+      dockerfile: Dockerfile
     ports:
       - "8545:8545"
+  server:
+    environment:
+      - RPC_HOST=ganache
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    working_dir: /usr/src/server
+    depends_on:
+      - ganache
   plasma:
     build:
       context: ./plasma_cash
-      dockerfile: ./Dockerfile
-    volumes:
-      - .:/usr/src/plasma_cash
+      dockerfile: Dockerfile
     working_dir: /usr/src/plasma_cash
-    ports:
-     - "5000:5000"
+    depends_on:
+      - server
+    healthcheck:
+        test: ["CMD", "curl", "-X", "POST", "--url", "http://localhost:8545", "--data", "{\"jsonrpc\":\"2.0\",\"method\":\"web3_clientVersion\",\"params\":[],\"id\":68}" ]
+        interval: 5s
+        timeout: 2s
+        retries: 5
